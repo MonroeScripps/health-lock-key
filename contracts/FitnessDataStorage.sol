@@ -1,10 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-// Simplified version for development testing
-
-// Simplified version for development testing
-
 import {FHE, euint64, externalEuint64} from "@fhevm/solidity/lib/FHE.sol";
 import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 
@@ -70,6 +66,7 @@ contract FitnessDataStorage is SepoliaConfig {
         });
 
         _totalWorkouts[msg.sender]++;
+        totalRecords++;
 
         // Allow access: contract and user
         FHE.allowThis(_fitnessRecords[msg.sender].steps);
