@@ -1,6 +1,5 @@
 import { Logo } from "./Logo";
-import { Button } from "./ui/button";
-import { Wallet } from "lucide-react";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export const Header = () => {
   return (
@@ -11,11 +10,7 @@ export const Header = () => {
           <span className="text-xl font-bold text-foreground">HealthLock</span>
         </div>
         
-        <Button variant="outline" className="gap-2">
-          <Wallet className="w-4 h-4" />
-          <span className="hidden sm:inline">Connect Rainbow Wallet</span>
-          <span className="sm:hidden">Connect</span>
-        </Button>
+        <ConnectButton />
       </div>
     </header>
   );
