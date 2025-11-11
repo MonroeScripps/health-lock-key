@@ -47,6 +47,7 @@ contract FitnessDataStorage is SepoliaConfig {
         string calldata name
     ) external {
         // Removed input proof validation for development
+        require(inputProof.length > 0, "Input proof cannot be empty");
         require(name.length > 0, "Name cannot be empty");
         require(bytes(name).length <= 50, "Name too long");
         euint64 _steps = FHE.fromExternal(steps, inputProof);
