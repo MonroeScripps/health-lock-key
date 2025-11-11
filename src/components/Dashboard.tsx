@@ -1,4 +1,8 @@
+import { useState } from "react";
 import { RecordCard } from "./RecordCard";
+import { AddRecordDialog } from "./AddRecordDialog";
+import { Button } from "./ui/button";
+import { Plus } from "lucide-react";
 
 const sampleRecords = [
   {
@@ -52,14 +56,22 @@ const sampleRecords = [
 ];
 
 export const Dashboard = () => {
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
+
   return (
     <section className="py-16 px-4 bg-muted/30">
       <div className="container mx-auto max-w-7xl">
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold text-foreground mb-2">Your Medical Records</h2>
-          <p className="text-muted-foreground">
-            All records are encrypted and stored securely. Control who has access with granular permissions.
-          </p>
+        <div className="mb-12 flex items-start justify-between">
+          <div>
+            <h2 className="text-3xl font-bold text-foreground mb-2">Your Medical Records</h2>
+            <p className="text-muted-foreground">
+              All records are encrypted and stored securely. Control who has access with granular permissions.
+            </p>
+          </div>
+          <Button onClick={() => setAddDialogOpen(true)} className="gap-2">
+            <Plus className="w-4 h-4" />
+            Add Record
+          </Button>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -67,6 +79,8 @@ export const Dashboard = () => {
             <RecordCard key={record.id} {...record} />
           ))}
         </div>
+
+        <AddRecordDialog open={addDialogOpen} onOpenChange={setAddDialogOpen} />
       </div>
     </section>
   );
