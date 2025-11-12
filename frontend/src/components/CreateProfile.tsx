@@ -31,7 +31,53 @@ export function CreateProfile({ onWorkoutSubmitted }: CreateProfileProps) {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    // Input validation
+    if (name === 'name' && value.length > 50) {
+      return; // Don't update if name is too long
+    }
+
+    // Only allow positive numbers for numeric fields
+    if (['steps', 'runningDistance', 'caloriesBurned', 'workoutDuration', 'heartRateAvg'].includes(name)) {
+      if (value !== '' && (isNaN(Number(value)) || Number(value) < 0)) {
+        return; // Don't update if invalid number
+      }
+    }
+
     setForm((f) => ({ ...f, [name]: value }));
+  };
+
+  const validateForm = () => {
+    if (!form.name.trim()) {
+      setMessage('Please enter your name');
+      return false;
+    }
+
+    if (form.name.length > 50) {
+      setMessage('Name must be 50 characters or less');
+      return false;
+    }
+
+    const numericFields = ['steps', 'runningDistance', 'caloriesBurned', 'workoutDuration', 'heartRateAvg'];
+    const filledFields = numericFields.filter(field => form[field as keyof typeof form].trim() !== '');
+
+    if (filledFields.length === 0) {
+      setMessage('Please enter at least one fitness metric');
+      return false;
+    }
+
+    // Check if at least one numeric field has a valid positive number
+    const hasValidData = filledFields.some(field => {
+      const value = Number(form[field as keyof typeof form]);
+      return !isNaN(value) && value > 0;
+    });
+
+    if (!hasValidData) {
+      setMessage('Please enter valid positive numbers for fitness data');
+      return false;
+    }
+
+    return true;
   };
 
   // Handle transaction confirmation
@@ -73,6 +119,14 @@ export function CreateProfile({ onWorkoutSubmitted }: CreateProfileProps) {
     setMessage('');
     setIsSubmitting(true);
     setSubmitStatus('idle');
+    setMessage('');
+
+    // Validate form before submission
+    if (!validateForm()) {
+      setIsSubmitting(false);
+      setSubmitStatus('error');
+      return;
+    }
 
     try {
       console.log('Contract address:', contractAddress);
