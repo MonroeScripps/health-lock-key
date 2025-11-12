@@ -153,6 +153,13 @@ contract FitnessDataStorage is SepoliaConfig {
         );
     }
 
+    /// @notice Calculate encrypted average of all fitness metrics
+    /// @dev Returns average steps across all workouts for the user
+    function getAverageSteps(address account) external view returns (euint64) {
+        require(hasFitnessData(account), "No fitness data found");
+        return FHE.div(_fitnessRecords[account].steps, FHE.asEuint64(_totalWorkouts[account]));
+    }
+
     /// @notice Calculate encrypted weekly average (simplified - just returns the current value)
     /// @dev In a real implementation, this would aggregate multiple entries
     function getWeeklyAverage(address account) external view returns (euint64) {
