@@ -392,6 +392,43 @@ export function Profile() {
                 )}
               </button>
 
+              {Object.keys(dec).length > 0 && (
+                <button
+                  onClick={() => {
+                    const data = {
+                      name,
+                      totalWorkouts,
+                      lastUpdate: new Date().toISOString(),
+                      fitnessData: dec
+                    };
+                    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `fitness-data-${address?.slice(0, 6)}.json`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                  disabled={loading || isSigning}
+                  style={{
+                    marginTop: '12px',
+                    padding: '12px 24px',
+                    background: 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontSize: '0.95rem',
+                    fontWeight: 500,
+                    cursor: loading || isSigning ? 'not-allowed' : 'pointer',
+                    opacity: loading || isSigning ? 0.6 : 1,
+                    transition: 'all 0.2s ease',
+                    boxShadow: '0 4px 12px rgba(76, 175, 80, 0.3)'
+                  }}
+                >
+                  📥 Export Fitness Data
+                </button>
+              )}
+
               <div style={{
                 marginTop: '16px',
                 fontSize: '0.9rem',
