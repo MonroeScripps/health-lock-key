@@ -8,6 +8,15 @@ import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 /// @notice Store and retrieve user's encrypted fitness data using FHEVM
 /// @dev Uses Zama FHEVM types. Numerical fields are encrypted euint64.
 contract FitnessDataStorage is SepoliaConfig {
+    struct FitnessDataInput {
+        externalEuint64 steps;
+        externalEuint64 runningDistance;
+        externalEuint64 caloriesBurned;
+        externalEuint64 workoutDuration;
+        externalEuint64 heartRateAvg;
+        string name;
+    }
+
     struct FitnessData {
         string name; // clear text - user identifier
         euint64 steps; // daily steps count
@@ -83,6 +92,47 @@ contract FitnessDataStorage is SepoliaConfig {
         FHE.allow(_fitnessRecords[msg.sender].heartRateAvg, msg.sender);
 
         emit FitnessDataUpdated(msg.sender, block.timestamp);
+    }
+
+    /// @notice Batch set multiple fitness data entries
+    /// @param entries Array of fitness data entries to set
+    /// @dev Useful for importing historical data or bulk operations
+    function batchSetFitnessData(
+        FitnessDataInput[] calldata entries,
+        bytes[] calldata inputProofs
+    ) external {
+        require(entries.length == inputProofs.length, "Mismatched array lengths");
+        require(entries.length > 0 && entries.length <= 10, "Invalid batch size");
+
+        for (uint256 i = 0; i < entries.length; i++) {
+            FitnessDataInput memory entry = entries[i];
+            bytes memory proof = inputProofs[i];
+
+            require(proof.length > 0, "Input proof cannot be empty");
+            require(bytes(entry.name).length > 0, "Name cannot be empty");
+            require(bytes(entry.name).length <= 50, "Name too long");
+
+            euint64 _steps = FHE.fromExternal(entry.steps, proof);
+            euint64 _runningDistance = FHE.fromExternal(entry.runningDistance, proof);
+            euint64 _caloriesBurned = FHE.fromExternal(entry.caloriesBurned, proof);
+            euint64 _workoutDuration = FHE.fromExternal(entry.workoutDuration, proof);
+            euint64 _heartRateAvg = FHE.fromExternal(entry.heartRateAvg, proof);
+
+            _fitnessRecords[msg.sender] = FitnessData({
+                name: entry.name,
+                steps: _steps,
+                runningDistance: _runningDistance,
+                caloriesBurned: _caloriesBurned,
+                workoutDuration: _workoutDuration,
+                heartRateAvg: _heartRateAvg,
+                lastUpdate: block.timestamp
+            });
+
+            _totalWorkouts[msg.sender]++;
+            totalRecords++;
+
+            emit FitnessDataUpdated(msg.sender, block.timestamp);
+        }
     }
 
     /// @notice Get clear text user name for an account
