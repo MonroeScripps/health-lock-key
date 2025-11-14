@@ -38,6 +38,8 @@ const config: HardhatUserConfig = {
         mnemonic: MNEMONIC,
       },
       chainId: 31337,
+      gas: 8000000,
+      blockGasLimit: 8000000,
     },
     anvil: {
       accounts: {
