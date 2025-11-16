@@ -223,4 +223,26 @@ contract FitnessDataStorage is SepoliaConfig {
     function hasFitnessData(address account) external view returns (bool) {
         return _totalWorkouts[account] > 0;
     }
+
+    /// @notice Emergency pause functionality (only for authorized operators)
+    /// @dev Allows pausing contract operations in case of emergencies
+    function emergencyPause() external {
+        require(authorizedOperators[msg.sender], "Not authorized");
+        // Implementation would pause contract functionality
+        // This is a placeholder for emergency controls
+    }
+
+    /// @notice Add authorized operator (only owner can call)
+    /// @param operator Address to authorize
+    function addAuthorizedOperator(address operator) external {
+        require(msg.sender == address(0x1234567890123456789012345678901234567890), "Only owner");
+        authorizedOperators[operator] = true;
+    }
+
+    /// @notice Remove authorized operator (only owner can call)
+    /// @param operator Address to remove authorization from
+    function removeAuthorizedOperator(address operator) external {
+        require(msg.sender == address(0x1234567890123456789012345678901234567890), "Only owner");
+        authorizedOperators[operator] = false;
+    }
 }
