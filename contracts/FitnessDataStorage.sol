@@ -37,6 +37,7 @@ contract FitnessDataStorage is SepoliaConfig {
     mapping(address => bool) public authorizedOperators;
 
     event FitnessDataUpdated(address indexed user, uint256 timestamp);
+    event BatchDataImported(address indexed user, uint256 entriesCount, uint256 timestamp);
 
     /// @notice Set or update caller's fitness data
     /// @param steps external encrypted steps handle
@@ -133,6 +134,8 @@ contract FitnessDataStorage is SepoliaConfig {
 
             emit FitnessDataUpdated(msg.sender, block.timestamp);
         }
+
+        emit BatchDataImported(msg.sender, entries.length, block.timestamp);
     }
 
     /// @notice Get clear text user name for an account
