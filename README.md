@@ -16,10 +16,6 @@ end-to-end encryption while allowing for encrypted statistical analysis.
 - **End-to-End Encryption**: Data is encrypted on the client-side before being sent to the blockchain
 - **Statistical Analysis**: Third parties can perform computations on encrypted data without decrypting it
 - **Multi-Metric Tracking**: Track steps, running distance, calories burned, workout duration, and heart rate
-- **Encrypted Analytics**: Calculate averages and statistics on encrypted data
-- **Batch Import**: Import multiple workout sessions efficiently
-- **Data Export**: Export your decrypted fitness data for personal backup
-- **Form Validation**: Comprehensive input validation and sanitization
 - **Web3 Integration**: Connect with RainbowKit wallet for seamless blockchain interaction
 - **Modern UI**: Beautiful, responsive interface built with React and modern web technologies
 - **Secure Storage**: Fitness data is permanently stored on the blockchain with user-controlled decryption
@@ -43,28 +39,6 @@ All fitness data remains encrypted on the blockchain until you choose to decrypt
 - Total workout sessions tracking
 
 ## Quick Start
-
-## Deployment Guide
-
-### Local Development
-```bash
-npm run node        # Start local Hardhat network
-npm run deploy:localhost  # Deploy contracts to localhost
-cd frontend && npm run dev  # Start frontend development server
-```
-
-### Sepolia Testnet
-```bash
-npm run deploy:sepolia    # Deploy to Sepolia testnet
-npm run verify:sepolia    # Verify contracts on Etherscan
-```
-
-## Security Features
-
-- **FHE Encryption**: All fitness data is homomorphically encrypted
-- **Access Control**: Role-based permissions for administrative operations
-- **Input Validation**: Comprehensive validation of fitness data submissions
-- **Emergency Stop**: Authorized operators can pause fitness data access
 
 For detailed instructions see:
 [FHEVM Hardhat Quick Start Tutorial](https://docs.zama.ai/protocol/solidity-guides/getting-started/quick-start-tutorial)
