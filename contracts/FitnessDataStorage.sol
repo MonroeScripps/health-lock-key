@@ -1,6 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
+/**
+ * @title Health Lock - Privacy-Preserving Fitness Data Storage
+ * @notice Secure fitness data management using Fully Homomorphic Encryption (FHE)
+ * @dev Implements encrypted fitness metrics storage with Zama FHEVM
+ * @custom:security-contact security@health-lock.com
+ */
+
 import {FHE, euint64, externalEuint64} from "@fhevm/solidity/lib/FHE.sol";
 import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 
