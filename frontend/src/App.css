@@ -41,6 +41,17 @@
   color: #888;
 }
 
+/* Modern responsive design for fitness app */
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+}
+
 /* Modern animations for fitness app */
 @keyframes fade-in {
   from {
