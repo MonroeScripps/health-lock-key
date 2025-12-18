@@ -7,10 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "preview": "vite preview",
-    "type-check": "tsc --noEmit",
-    "clean": "rm -rf dist node_modules/.vite"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^2.2.9",
@@ -25,7 +22,6 @@
   "devDependencies": {
     "@eslint/js": "^9.35.0",
     "@types/react": "^19.1.13",
-    "@types/react": "^18.0.0",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.2",
     "eslint": "^9.35.0",

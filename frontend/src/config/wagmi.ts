@@ -1,4 +1,3 @@
-// Enhanced wagmi configuration for fitness data with FHE support
 import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 import { sepolia, localhost } from 'wagmi/chains';
 
@@ -10,21 +9,9 @@ export const config = getDefaultConfig({
     {
       ...localhost,
       id: 31337,
-      name: 'Localhost',
-      nativeCurrency: {
-        name: 'Ether',
-        symbol: 'ETH',
-        decimals: 18,
-      },
       rpcUrls: {
         default: { http: ['http://localhost:8545'] },
         public: { http: ['http://localhost:8545'] },
-      },
-      blockExplorers: {
-        default: {
-          name: 'Local Explorer',
-          url: 'http://localhost:8545',
-        },
       },
     }
   ],

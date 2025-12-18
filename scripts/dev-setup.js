@@ -5,7 +5,6 @@
  * Handles Hardhat node management, contract deployment, and environment setup
  */
 
-// Development setup script for fitness data storage project
 const { execSync, spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');

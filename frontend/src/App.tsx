@@ -13,8 +13,6 @@ const queryClient = new QueryClient();
 
 type Page = 'create' | 'profile';
 
-
-
 function useHashRoute(): [Page, (p: Page) => void] {
   const [page, setPage] = useState<Page>(() => (location.hash === '#/create' ? 'create' : 'profile'));
   useEffect(() => {
@@ -34,7 +32,6 @@ function App() {
   const [profileRefreshKey, setProfileRefreshKey] = useState(0);
 
   const handleWorkoutSubmitted = () => {
-    // Trigger Profile component to refresh its data
     setProfileRefreshKey(prev => prev + 1);
   };
 
@@ -42,150 +39,203 @@ function App() {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider locale="en">
-          <div style={{ minHeight: '100vh' }}>
-          {/* Header with glassmorphism effect */}
-          <header className="glass" style={{
-            position: 'sticky',
-            top: 0,
-            zIndex: 50,
-            borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
-          }}>
-            <div style={{
-              maxWidth: '1200px',
-              margin: '0 auto',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '16px 24px'
+          <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+            {/* Header */}
+            <header className="glass" style={{
+              position: 'sticky',
+              top: 0,
+              zIndex: 50,
+              borderBottom: '1px solid rgba(0, 245, 212, 0.1)'
+            }}>
+              <div style={{
+                maxWidth: '1200px',
+                margin: '0 auto',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '16px 24px'
               }}>
-                <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 12
-                  }}>
+                {/* Logo & Nav */}
+                <div style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
+                  {/* Logo */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     <div style={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #ff6b35 0%, #f7931e 100%)',
+                      width: 44,
+                      height: 44,
+                      borderRadius: '12px',
+                      background: 'linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-purple) 100%)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '18px',
-                      fontWeight: 'bold',
-                      color: 'white',
-                      boxShadow: '0 4px 12px rgba(255, 107, 53, 0.3)'
+                      fontSize: '22px',
+                      boxShadow: '0 0 20px rgba(0, 245, 212, 0.3)',
+                      animation: 'glow 3s ease-in-out infinite'
                     }}>
-                      🏃‍♂️
+                      💪
                     </div>
-                    <div style={{
-                      fontWeight: 700,
-                      fontSize: '1.5rem',
-                      color: 'white',
-                      textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-                    }}>
-                      Health Lock
+                    <div>
+                      <div style={{
+                        fontWeight: 800,
+                        fontSize: '1.3rem',
+                        background: 'linear-gradient(135deg, var(--neon-cyan), var(--neon-purple))',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        letterSpacing: '-0.5px'
+                      }}>
+                        Health Lock
+                      </div>
+                      <div style={{
+                        fontSize: '0.7rem',
+                        color: 'var(--text-muted)',
+                        letterSpacing: '2px',
+                        textTransform: 'uppercase'
+                      }}>
+                        FHE Encrypted
+                      </div>
                     </div>
                   </div>
+
+                  {/* Navigation */}
                   <nav style={{ display: 'flex', gap: 8 }}>
                     <a
                       href="#/create"
                       onClick={(e) => { e.preventDefault(); navigate('create'); }}
                       className={`nav-link ${page === 'create' ? 'active' : ''}`}
                     >
-                      📊 Log Workout
+                      <span>🏋️</span> Log Workout
                     </a>
                     <a
                       href="#/profile"
                       onClick={(e) => { e.preventDefault(); navigate('profile'); }}
                       className={`nav-link ${page === 'profile' ? 'active' : ''}`}
                     >
-                      📈 My Fitness Data
+                      <span>📊</span> Dashboard
                     </a>
                   </nav>
                 </div>
+
+                {/* Wallet Connect */}
                 <div style={{
                   borderRadius: '12px',
                   padding: '4px',
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  backdropFilter: 'blur(10px)'
+                  background: 'rgba(0, 245, 212, 0.05)',
+                  border: '1px solid rgba(0, 245, 212, 0.1)'
                 }}>
                   <ConnectButton />
                 </div>
               </div>
             </header>
 
-            {/* Hero section */}
+            {/* Hero Section */}
             <section style={{
-              padding: '60px 24px 40px',
+              padding: '60px 24px 50px',
               textAlign: 'center',
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'
+              position: 'relative',
+              overflow: 'hidden'
             }}>
-              <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+              {/* Decorative Elements */}
+              <div style={{
+                position: 'absolute',
+                top: '20%',
+                left: '10%',
+                fontSize: '4rem',
+                opacity: 0.1,
+                animation: 'float 4s ease-in-out infinite'
+              }}>🏃</div>
+              <div style={{
+                position: 'absolute',
+                top: '30%',
+                right: '15%',
+                fontSize: '3rem',
+                opacity: 0.1,
+                animation: 'float 5s ease-in-out infinite',
+                animationDelay: '1s'
+              }}>🔐</div>
+              <div style={{
+                position: 'absolute',
+                bottom: '20%',
+                left: '20%',
+                fontSize: '2.5rem',
+                opacity: 0.1,
+                animation: 'float 6s ease-in-out infinite',
+                animationDelay: '2s'
+              }}>💓</div>
+
+              <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative' }}>
+                {/* Main Title */}
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '8px 20px',
+                  background: 'rgba(0, 245, 212, 0.1)',
+                  borderRadius: '50px',
+                  marginBottom: '24px',
+                  border: '1px solid rgba(0, 245, 212, 0.2)'
+                }}>
+                  <span style={{ fontSize: '1.2rem' }}>🛡️</span>
+                  <span style={{ color: 'var(--neon-cyan)', fontWeight: 600, fontSize: '0.9rem' }}>
+                    Powered by Zama FHEVM
+                  </span>
+                </div>
+
                 <h1 style={{
-                  fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                  fontSize: 'clamp(2.2rem, 5vw, 3.5rem)',
                   fontWeight: 800,
-                  color: 'white',
-                  marginBottom: '16px',
-                  textShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                  lineHeight: 1.2
+                  marginBottom: '20px',
+                  lineHeight: 1.1,
+                  letterSpacing: '-1px'
                 }}>
-                  Privacy-Preserving Fitness Tracking
+                  <span style={{ color: 'var(--text-primary)' }}>Privacy-First </span>
+                  <span style={{
+                    background: 'linear-gradient(135deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }}>
+                    Fitness Tracking
+                  </span>
                 </h1>
+
                 <p style={{
-                  fontSize: '1.25rem',
-                  color: 'rgba(255, 255, 255, 0.9)',
-                  marginBottom: '32px',
-                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  fontSize: '1.15rem',
+                  color: 'var(--text-secondary)',
+                  marginBottom: '36px',
                   maxWidth: '600px',
-                  margin: '0 auto 32px'
+                  margin: '0 auto 36px',
+                  lineHeight: 1.7
                 }}>
-                  Track your fitness journey with end-to-end encrypted data. Share insights with third parties without compromising your privacy.
+                  🔒 Your workout data is <strong style={{ color: 'var(--neon-cyan)' }}>fully encrypted</strong> on-chain. 
+                  Only you can decrypt and view your fitness metrics.
                 </p>
+
+                {/* Feature Badges */}
                 <div style={{
                   display: 'flex',
-                  gap: 16,
+                  gap: 12,
                   justifyContent: 'center',
                   flexWrap: 'wrap'
                 }}>
-                  <div style={{
-                    padding: '12px 24px',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    borderRadius: '8px',
-                    color: 'white',
-                    fontSize: '0.9rem',
-                    fontWeight: 500
-                  }}>
-                    🏃‍♂️ Fitness Tracking
+                  <div className="badge badge-cyan">
+                    <span>🏃‍♂️</span> Track Workouts
                   </div>
-                  <div style={{
-                    padding: '12px 24px',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    borderRadius: '8px',
-                    color: 'white',
-                    fontSize: '0.9rem',
-                    fontWeight: 500
-                  }}>
-                    🔒 FHE Encrypted
+                  <div className="badge badge-purple">
+                    <span>🔐</span> End-to-End Encrypted
                   </div>
-                  <div style={{
-                    padding: '12px 24px',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    borderRadius: '8px',
-                    color: 'white',
-                    fontSize: '0.9rem',
-                    fontWeight: 500
-                  }}>
-                    📊 Privacy Analytics
+                  <div className="badge badge-pink">
+                    <span>⛓️</span> On-Chain Storage
+                  </div>
+                  <div className="badge">
+                    <span>🎯</span> Zero Knowledge
                   </div>
                 </div>
               </div>
             </section>
 
-            {/* Main content */}
+            {/* Main Content */}
             <main style={{
+              flex: 1,
               maxWidth: '900px',
+              width: '100%',
               margin: '0 auto',
               padding: '0 24px 60px',
             }}>
@@ -199,19 +249,35 @@ function App() {
 
             {/* Footer */}
             <footer style={{
-              background: 'rgba(0, 0, 0, 0.1)',
-              backdropFilter: 'blur(10px)',
-              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'rgba(0, 0, 0, 0.3)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.05)',
               padding: '32px 24px',
               textAlign: 'center'
             }}>
               <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  marginBottom: '12px'
+                }}>
+                  <span style={{ fontSize: '1.2rem' }}>⚡</span>
+                  <span style={{
+                    background: 'linear-gradient(135deg, var(--neon-cyan), var(--neon-purple))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    fontWeight: 700
+                  }}>
+                    Health Lock
+                  </span>
+                </div>
                 <p style={{
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  fontSize: '0.9rem',
+                  color: 'var(--text-muted)',
+                  fontSize: '0.85rem',
                   margin: 0
                 }}>
-                  © 2024 Health Lock. Built with privacy and fitness in mind.
+                  © 2024 Health Lock · Built with 💜 using Zama FHEVM · Your data, your control
                 </p>
               </div>
             </footer>
@@ -222,4 +288,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

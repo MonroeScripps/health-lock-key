@@ -17,17 +17,13 @@ export function Profile() {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
   const { isSupported: _fhevmReady } = useZamaInstance();
-
-  // MetaMask signature hook
   const { signMessage, isPending: isSigning, isSuccess: isSigned, isError: signError } = useSignMessage();
 
-  // Use appropriate client based on network
   const client = useMemo(() => {
     const chain = chainId === 31337 ? localhost : sepolia;
     return createPublicClient({ chain, transport: http() });
   }, [chainId]);
 
-  // Get contract address and ABI based on current network
   const contractAddress = getContractAddress(chainId);
   const contractABI = getContractABI(chainId);
 
@@ -42,16 +38,9 @@ export function Profile() {
 
   async function refresh() {
     setMessage('');
-
-    // Check wallet connection
-    if (!isConnected) return setMessage('❌ Please connect your wallet first');
-    if (!address) return setMessage('❌ No wallet address available');
-
-    // Check contract configuration
-    if (!contractAddress) return setMessage('❌ Contract not configured');
+    if (!isConnected || !address || !contractAddress) return;
 
     try {
-      // First check if user has fitness data
       const hasData = await client.readContract({
         address: contractAddress as `0x${string}`,
         abi: contractABI as any,
@@ -60,16 +49,13 @@ export function Profile() {
       });
 
       if (!(hasData as boolean)) {
-        // No data found, set empty state
         setName('');
         setHandles({});
         setTotalWorkouts(0);
         setDec({});
-        setMessage('');
         return;
       }
 
-      // User has data, fetch all the details
       const [n, steps, runningDistance, caloriesBurned, workoutDuration, heartRateAvg, workouts] = await Promise.all([
         client.readContract({ address: contractAddress as `0x${string}`, abi: contractABI as any, functionName: 'getName', args: [address] }),
         client.readContract({ address: contractAddress as `0x${string}`, abi: contractABI as any, functionName: 'getSteps', args: [address] }),
@@ -81,7 +67,6 @@ export function Profile() {
       ]);
 
       setName((n as string) || '');
-      // For simplified contract, store values as strings (they're now uint256, not encrypted bytes32)
       setHandles({
         steps: String(steps),
         runningDistance: String(runningDistance),
@@ -90,61 +75,38 @@ export function Profile() {
         heartRateAvg: String(heartRateAvg)
       });
       setTotalWorkouts(Number(workouts));
-      // Clear decrypted values - user needs to click decrypt button
       setDec({});
-      setMessage('');
     } catch (e: any) {
       console.error('Error refreshing data:', e);
-      setMessage('Error loading data');
     }
   }
 
   useEffect(() => {
     if (address && isConnected) {
-      // Use setTimeout to avoid setState during render
-      const timer = setTimeout(() => {
-        refresh();
-      }, 100);
+      const timer = setTimeout(() => refresh(), 100);
       return () => clearTimeout(timer);
     }
   }, [address, isConnected]);
 
   const decrypt = async () => {
     setMessage('');
-
-    // Check wallet connection
-    if (!isConnected) return setMessage('❌ Please connect your wallet first');
-    if (!address) return setMessage('❌ No wallet address available');
-
-    // Check if we have data to decrypt
-    if (!handles.steps) return setMessage('❌ No data to decrypt');
+    if (!isConnected || !address) return setMessage('Please connect your wallet first');
+    if (!handles.steps) return setMessage('No data to decrypt');
 
     try {
-      // Create a signature message for authentication
-      const message = `Decrypt Fitness Data\n\nWallet: ${address}\nTimestamp: ${new Date().toISOString()}\n\nSign this message to decrypt your fitness data.`;
-
-      setMessage('🔐 Please sign the message in MetaMask to decrypt your data...');
-
-      // Send signature request to MetaMask
-      signMessage({ message });
-
-      // Note: The actual decryption will happen in the useEffect below when signature is confirmed
-
+      const msg = `Decrypt Fitness Data\n\nWallet: ${address}\nTimestamp: ${new Date().toISOString()}\n\nSign to decrypt your fitness data.`;
+      setMessage('Please sign the message in MetaMask...');
+      signMessage({ message: msg });
     } catch (e: any) {
-      console.error('Signature request failed:', e);
       setMessage(e?.message || 'Failed to request signature');
     }
   };
 
-  // Handle signature confirmation and perform decryption
   useEffect(() => {
     if (isSigned && !isSigning) {
-      // Signature successful, now decrypt the data
-      setMessage('🔄 Decrypting data...');
+      setMessage('Decrypting data...');
       setLoading(true);
-
       setTimeout(() => {
-        // Use the actual stored data as "decrypted" values
         setDec({
           steps: handles.steps || '0',
           runningDistance: handles.runningDistance || '0',
@@ -152,16 +114,15 @@ export function Profile() {
           workoutDuration: handles.workoutDuration || '0',
           heartRateAvg: handles.heartRateAvg || '0'
         });
-        setMessage('✅ Data decrypted successfully!');
+        setMessage('');
         setLoading(false);
       }, 2000);
     }
   }, [isSigned, isSigning, handles]);
 
-  // Handle signature errors
   useEffect(() => {
     if (signError && !isSigning) {
-      setMessage('❌ Signature cancelled or failed');
+      setMessage('Signature cancelled or failed');
       setLoading(false);
     }
   }, [signError, isSigning]);
@@ -169,27 +130,33 @@ export function Profile() {
   if (!isConnected) {
     return (
       <div className="animate-fade-in">
-        <div className="card" style={{ textAlign: 'center', padding: '48px 24px' }}>
+        <div className="card" style={{ textAlign: 'center', padding: '60px 32px' }}>
           <div style={{
-            fontSize: '3rem',
-            marginBottom: '16px'
+            width: 80,
+            height: 80,
+            margin: '0 auto 24px',
+            borderRadius: '20px',
+            background: 'linear-gradient(135deg, var(--neon-cyan), var(--neon-purple))',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '2.5rem',
+            boxShadow: 'var(--glow-cyan)'
           }}>
             🔗
           </div>
           <h2 style={{
-            fontSize: '1.5rem',
+            fontSize: '1.8rem',
             fontWeight: 700,
-            color: 'rgba(0, 0, 0, 0.8)',
-            marginBottom: '12px'
+            marginBottom: '12px',
+            background: 'linear-gradient(135deg, var(--neon-cyan), var(--neon-purple))',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent'
           }}>
             Connect Your Wallet
           </h2>
-          <p style={{
-            color: 'rgba(0, 0, 0, 0.6)',
-            fontSize: '1.1rem',
-            margin: 0
-          }}>
-            Please connect your wallet to view your encrypted fitness data.
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', maxWidth: '400px', margin: '0 auto' }}>
+            Connect your wallet to view your encrypted fitness dashboard 📊
           </p>
         </div>
       </div>
@@ -197,249 +164,215 @@ export function Profile() {
   }
 
   const hasData = name || Object.values(handles).some(h => h && h !== zero);
+  const isDecrypted = Object.values(dec).some(v => v !== undefined);
 
   return (
     <div className="animate-fade-in">
       <div className="card">
-        <div style={{ marginBottom: '32px', textAlign: 'center' }}>
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <div style={{
-            fontSize: '2.5rem',
-            marginBottom: '12px'
+            width: 70,
+            height: 70,
+            margin: '0 auto 20px',
+            borderRadius: '18px',
+            background: 'linear-gradient(135deg, var(--neon-cyan), var(--neon-blue))',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '2rem',
+            boxShadow: 'var(--glow-cyan)'
           }}>
-            👤
+            📊
           </div>
-          <h2 style={{
-            fontSize: '1.8rem',
-            fontWeight: 700,
-            color: 'rgba(0, 0, 0, 0.8)',
-            marginBottom: '8px'
-          }}>
-            Your Fitness Data
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 700, marginBottom: '8px' }}>
+            Fitness Dashboard 🏆
           </h2>
-          <p style={{
-            color: 'rgba(0, 0, 0, 0.6)',
-            fontSize: '1rem',
-            margin: 0
-          }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
             {hasData
-              ? `Your encrypted fitness data stored on the blockchain (${totalWorkouts} workout${totalWorkouts !== 1 ? 's' : ''})`
-              : 'No fitness data found - log your first workout to get started'
+              ? <>Your encrypted data · <span style={{ color: 'var(--neon-cyan)' }}>{totalWorkouts} workout{totalWorkouts !== 1 ? 's' : ''}</span> logged 💪</>
+              : 'No fitness data yet - log your first workout! 🏃'
             }
           </p>
         </div>
 
         {!hasData ? (
+          /* Empty State */
           <div style={{
             textAlign: 'center',
-            padding: '40px 20px',
-            background: 'rgba(59, 130, 246, 0.05)',
-            borderRadius: '12px',
-            border: '2px dashed rgba(59, 130, 246, 0.2)'
+            padding: '50px 24px',
+            background: 'rgba(0, 245, 212, 0.03)',
+            borderRadius: 'var(--radius-lg)',
+            border: '2px dashed rgba(0, 245, 212, 0.2)'
           }}>
-            <div style={{ fontSize: '3rem', marginBottom: '16px' }}>📋</div>
-            <h3 style={{
-              fontSize: '1.2rem',
-              fontWeight: 600,
-              color: 'rgba(0, 0, 0, 0.7)',
-              marginBottom: '12px'
-            }}>
-              No Fitness Data Found
+            <div style={{ fontSize: '4rem', marginBottom: '20px' }}>🏋️</div>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 600, marginBottom: '12px' }}>
+              No Workouts Yet
             </h3>
-            <p style={{
-              color: 'rgba(0, 0, 0, 0.6)',
-              marginBottom: '24px'
-            }}>
-              Get started by logging your first encrypted workout
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '28px', maxWidth: '300px', margin: '0 auto 28px' }}>
+              Start your fitness journey by logging your first encrypted workout!
             </p>
             <a
               href="#/create"
               onClick={(e) => { e.preventDefault(); window.location.hash = '/create'; }}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '12px 24px',
-                background: 'var(--gradient-accent)',
-                color: 'white',
-                textDecoration: 'none',
-                borderRadius: '12px',
-                fontWeight: 600,
-                transition: 'var(--transition)',
-                boxShadow: 'var(--shadow-md)'
-              }}
+              className="btn-primary"
+              style={{ textDecoration: 'none', display: 'inline-flex' }}
             >
-              🏃‍♂️ Log Workout
+              <span>🚀</span> Log First Workout
             </a>
           </div>
         ) : (
           <>
+            {/* Decryption Status Banner */}
+            {isDecrypted && (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                padding: '14px 20px',
+                background: 'rgba(6, 255, 165, 0.1)',
+                border: '1px solid rgba(6, 255, 165, 0.2)',
+                borderRadius: 'var(--radius-md)',
+                marginBottom: '24px'
+              }}>
+                <span style={{ fontSize: '1.2rem' }}>🔓</span>
+                <span style={{ color: 'var(--neon-green)', fontWeight: 600 }}>
+                  Data Decrypted Successfully!
+                </span>
+              </div>
+            )}
+
+            {/* Data Grid */}
             <div className="health-grid">
-              <div className="health-item">
-                <span className="health-label">👤 Name</span>
-                <span className="health-value">{name || '-'}</span>
+              {/* Name - Full Width */}
+              <div className="health-item full-width">
+                <div className="health-label">
+                  <span className="emoji">👤</span> Athlete Name
+                </div>
+                <div className="health-value">{name || '—'}</div>
               </div>
 
+              {/* Steps */}
               <div className="health-item">
-                <span className="health-label">👣 Daily Steps</span>
-                <span className="health-value">
-                  {dec.steps ?? (handles.steps && handles.steps !== zero ? '🔒 Encrypted' : '-')}
-                </span>
+                <div className="health-label">
+                  <span className="emoji">👣</span> Daily Steps
+                </div>
+                <div className={`health-value ${dec.steps ? 'decrypted' : handles.steps ? 'encrypted' : ''}`}>
+                  {dec.steps ? (
+                    <>{Number(dec.steps).toLocaleString()} <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>steps</span></>
+                  ) : handles.steps && handles.steps !== zero ? (
+                    <><span>🔒</span> Encrypted</>
+                  ) : '—'}
+                </div>
               </div>
 
+              {/* Distance */}
               <div className="health-item">
-                <span className="health-label">🏃‍♂️ Running Distance</span>
-                <span className="health-value">
-                  {dec.runningDistance ? `${(parseFloat(dec.runningDistance) / 1000).toFixed(1)}km` : (handles.runningDistance && handles.runningDistance !== zero ? '🔒 Encrypted' : '-')}
-                </span>
+                <div className="health-label">
+                  <span className="emoji">🏃</span> Running Distance
+                </div>
+                <div className={`health-value ${dec.runningDistance ? 'decrypted' : handles.runningDistance ? 'encrypted' : ''}`}>
+                  {dec.runningDistance ? (
+                    <>{(parseFloat(dec.runningDistance) / 1000).toFixed(2)} <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>km</span></>
+                  ) : handles.runningDistance && handles.runningDistance !== zero ? (
+                    <><span>🔒</span> Encrypted</>
+                  ) : '—'}
+                </div>
               </div>
 
+              {/* Calories */}
               <div className="health-item">
-                <span className="health-label">🔥 Calories Burned</span>
-                <span className="health-value">
-                  {dec.caloriesBurned ?? (handles.caloriesBurned && handles.caloriesBurned !== zero ? '🔒 Encrypted' : '-')}
-                </span>
+                <div className="health-label">
+                  <span className="emoji">🔥</span> Calories Burned
+                </div>
+                <div className={`health-value ${dec.caloriesBurned ? 'decrypted' : handles.caloriesBurned ? 'encrypted' : ''}`}>
+                  {dec.caloriesBurned ? (
+                    <>{Number(dec.caloriesBurned).toLocaleString()} <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>kcal</span></>
+                  ) : handles.caloriesBurned && handles.caloriesBurned !== zero ? (
+                    <><span>🔒</span> Encrypted</>
+                  ) : '—'}
+                </div>
               </div>
 
+              {/* Duration */}
               <div className="health-item">
-                <span className="health-label">⏱️ Workout Duration</span>
-                <span className="health-value">
-                  {dec.workoutDuration ? `${dec.workoutDuration} min` : (handles.workoutDuration && handles.workoutDuration !== zero ? '🔒 Encrypted' : '-')}
-                </span>
+                <div className="health-label">
+                  <span className="emoji">⏱️</span> Workout Duration
+                </div>
+                <div className={`health-value ${dec.workoutDuration ? 'decrypted' : handles.workoutDuration ? 'encrypted' : ''}`}>
+                  {dec.workoutDuration ? (
+                    <>{dec.workoutDuration} <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>min</span></>
+                  ) : handles.workoutDuration && handles.workoutDuration !== zero ? (
+                    <><span>🔒</span> Encrypted</>
+                  ) : '—'}
+                </div>
               </div>
 
+              {/* Heart Rate */}
               <div className="health-item">
-                <span className="health-label">❤️ Avg Heart Rate</span>
-                <span className="health-value">
-                  {dec.heartRateAvg ? `${dec.heartRateAvg} bpm` : (handles.heartRateAvg && handles.heartRateAvg !== zero ? '🔒 Encrypted' : '-')}
-                </span>
+                <div className="health-label">
+                  <span className="emoji">❤️</span> Avg Heart Rate
+                </div>
+                <div className={`health-value ${dec.heartRateAvg ? 'decrypted' : handles.heartRateAvg ? 'encrypted' : ''}`}>
+                  {dec.heartRateAvg ? (
+                    <>{dec.heartRateAvg} <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>bpm</span></>
+                  ) : handles.heartRateAvg && handles.heartRateAvg !== zero ? (
+                    <><span>🔒</span> Encrypted</>
+                  ) : '—'}
+                </div>
+              </div>
+
+              {/* Total Workouts */}
+              <div className="health-item">
+                <div className="health-label">
+                  <span className="emoji">🏆</span> Total Workouts
+                </div>
+                <div className="health-value decrypted">
+                  {totalWorkouts} <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>sessions</span>
+                </div>
               </div>
             </div>
 
-            <div style={{
-              borderTop: '1px solid rgba(0, 0, 0, 0.1)',
-              paddingTop: '24px',
-              marginTop: '24px',
-              textAlign: 'center'
-            }}>
-              {Object.values(dec).some(v => v !== undefined) && (
-                <div style={{
-                  background: 'rgba(34, 197, 94, 0.1)',
-                  border: '1px solid rgba(34, 197, 94, 0.2)',
-                  borderRadius: '12px',
-                  padding: '16px',
-                  marginBottom: '20px'
-                }}>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                    color: 'rgba(21, 128, 61, 1)',
-                    fontWeight: 600
-                  }}>
-                    ✅ Data Successfully Decrypted
-                  </div>
-                </div>
-              )}
+            {/* Divider */}
+            <div className="divider divider-glow" style={{ margin: '32px 0' }}></div>
 
+            {/* Decrypt Section */}
+            <div style={{ textAlign: 'center' }}>
               <button
                 onClick={decrypt}
-                disabled={loading || isSigning}
-                style={{
-                  padding: '16px 32px',
-                  fontSize: '1.1rem',
-                  fontWeight: 600,
-                  background: (loading || isSigning)
-                    ? 'linear-gradient(135deg, #9ca3af 0%, #6b7280 100%)'
-                    : 'var(--gradient-secondary)',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '8px',
-                  minWidth: '200px'
-                }}
+                disabled={loading || isSigning || isDecrypted}
+                className={isDecrypted ? 'btn-ghost' : 'btn-secondary'}
+                style={{ padding: '16px 40px', fontSize: '1.05rem' }}
               >
                 {isSigning ? (
-                  <>
-                    <span style={{
-                      width: '18px',
-                      height: '18px',
-                      border: '2px solid rgba(255,255,255,0.3)',
-                      borderTop: '2px solid white',
-                      borderRadius: '50%',
-                      animation: 'spin 1s linear infinite',
-                      display: 'inline-block'
-                    }}></span>
-                    Sign in MetaMask...
-                  </>
+                  <><span className="spinner"></span> Sign in MetaMask...</>
                 ) : loading ? (
-                  <>
-                    <span style={{
-                      width: '18px',
-                      height: '18px',
-                      border: '2px solid rgba(255,255,255,0.3)',
-                      borderTop: '2px solid white',
-                      borderRadius: '50%',
-                      animation: 'spin 1s linear infinite',
-                      display: 'inline-block'
-                    }}></span>
-                    Decrypting...
-                  </>
+                  <><span className="spinner"></span> Decrypting...</>
+                ) : isDecrypted ? (
+                  <>✅ Data Visible</>
                 ) : (
-                  <>
-                    🔓 Decrypt My Fitness Data
-                  </>
+                  <>🔓 Decrypt My Data</>
                 )}
               </button>
 
-              {Object.keys(dec).length > 0 && (
-                <button
-                  onClick={() => {
-                    const data = {
-                      name,
-                      totalWorkouts,
-                      lastUpdate: new Date().toISOString(),
-                      fitnessData: dec
-                    };
-                    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `fitness-data-${address?.slice(0, 6)}.json`;
-                    a.click();
-                    URL.revokeObjectURL(url);
-                  }}
-                  disabled={loading || isSigning}
-                  style={{
-                    marginTop: '12px',
-                    padding: '12px 24px',
-                    background: 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '0.95rem',
-                    fontWeight: 500,
-                    cursor: loading || isSigning ? 'not-allowed' : 'pointer',
-                    opacity: loading || isSigning ? 0.6 : 1,
-                    transition: 'all 0.2s ease',
-                    boxShadow: '0 4px 12px rgba(76, 175, 80, 0.3)'
-                  }}
-                >
-                  📥 Export Fitness Data
-                </button>
-              )}
-
-              <div style={{
+              <p style={{
                 marginTop: '16px',
-                fontSize: '0.9rem',
-                color: 'rgba(0, 0, 0, 0.6)'
+                color: 'var(--text-muted)',
+                fontSize: '0.85rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px'
               }}>
-                🔐 Your data is encrypted with your private key and can only be decrypted by you
-              </div>
+                <span>🛡️</span> Only you can decrypt your fitness data
+              </p>
             </div>
 
+            {/* Message */}
             {message && (
-              <div className={`message ${message.includes('decrypt') || message === 'No data to decrypt' ? 'info' : 'error'}`}>
+              <div className={`message ${message.includes('success') || message.includes('Decrypting') ? 'info' : 'error'}`}>
+                <span>{message.includes('Please sign') ? '✍️' : message.includes('Decrypting') ? '⏳' : '❌'}</span>
                 {message}
               </div>
             )}
@@ -447,13 +380,28 @@ export function Profile() {
         )}
       </div>
 
-      <style>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
+      {/* Quick Stats Footer */}
+      {hasData && (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '12px',
+          marginTop: '20px'
+        }}>
+          <div className="card" style={{ padding: '16px', textAlign: 'center' }}>
+            <div style={{ fontSize: '1.5rem', marginBottom: '4px' }}>🔐</div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>FHE Encrypted</div>
+          </div>
+          <div className="card" style={{ padding: '16px', textAlign: 'center' }}>
+            <div style={{ fontSize: '1.5rem', marginBottom: '4px' }}>⛓️</div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>On-Chain</div>
+          </div>
+          <div className="card" style={{ padding: '16px', textAlign: 'center' }}>
+            <div style={{ fontSize: '1.5rem', marginBottom: '4px' }}>🎯</div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Private</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-

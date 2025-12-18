@@ -1,5 +1,5 @@
 {
-  "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+  "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
   "abi": [
     {
       "anonymous": false,
@@ -297,25 +297,25 @@
       "type": "function"
     }
   ],
-  "transactionHash": "0x4b15a2718ffa8187a9fc0538a53d52c0b86a13fc6853ecbd4ace275f63914534",
+  "transactionHash": "0xdbf451b05fb3f55b3182264c316e7e80700b4d1035e1a71bf919444d9e7e149d",
   "receipt": {
     "to": null,
     "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-    "contractAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
     "transactionIndex": 0,
     "gasUsed": "468965",
     "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "blockHash": "0x4bbbd591ef41452794a3686e5bf171d254bdbd295c2843027c1a7dd9100c18f8",
-    "transactionHash": "0x4b15a2718ffa8187a9fc0538a53d52c0b86a13fc6853ecbd4ace275f63914534",
+    "blockHash": "0x1416ac95f7ec833d7dfc32a77ff8feb5b3145ab9766622ded5337a906a4064a7",
+    "transactionHash": "0xdbf451b05fb3f55b3182264c316e7e80700b4d1035e1a71bf919444d9e7e149d",
     "logs": [],
-    "blockNumber": 9,
+    "blockNumber": 3,
     "cumulativeGasUsed": "468965",
     "status": 1,
     "byzantium": true
   },
   "args": [],
   "numDeployments": 1,
-  "solcInputHash": "c7e17e721771a06844e841f86ec80a52",
+  "solcInputHash": "d00682b24c5bd9de64f56c07f8d1fbc5",
   "metadata": "{\"compiler\":{\"version\":\"0.8.27+commit.40a35a09\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"FitnessDataUpdated\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getAllFitnessData\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"steps\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"runningDistance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"caloriesBurned\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"workoutDuration\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"heartRateAvg\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"totalWorkouts\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lastUpdate\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getCaloriesBurned\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getHeartRateAvg\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getLastUpdate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getName\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getRunningDistance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getSteps\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getTotalWorkouts\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getWorkoutDuration\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasFitnessData\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"protocolId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"steps\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"runningDistance\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"caloriesBurned\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"workoutDuration\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"heartRateAvg\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"setFitnessData\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Stores fitness data in clear text for testing\",\"kind\":\"dev\",\"methods\":{},\"title\":\"FitnessDataStorageSimple\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"getAllFitnessData(address)\":{\"notice\":\"Get all fitness data for an account\"},\"getCaloriesBurned(address)\":{\"notice\":\"Get calories burned for an account (clear text for demo)\"},\"getHeartRateAvg(address)\":{\"notice\":\"Get average heart rate for an account (clear text for demo)\"},\"getLastUpdate(address)\":{\"notice\":\"Get last update timestamp for an account\"},\"getName(address)\":{\"notice\":\"Get clear text user name for an account\"},\"getRunningDistance(address)\":{\"notice\":\"Get running distance for an account (clear text for demo)\"},\"getSteps(address)\":{\"notice\":\"Get steps for an account (clear text for demo)\"},\"getTotalWorkouts(address)\":{\"notice\":\"Get total workouts count for an account\"},\"getWorkoutDuration(address)\":{\"notice\":\"Get workout duration for an account (clear text for demo)\"},\"hasFitnessData(address)\":{\"notice\":\"Check if user has fitness data\"},\"protocolId()\":{\"notice\":\"Protocol ID for compatibility\"},\"setFitnessData(uint256,uint256,uint256,uint256,uint256,string)\":{\"notice\":\"Submit fitness data (simplified version without FHE)\"}},\"notice\":\"Simplified version for demo purposes without FHE\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/FitnessDataStorageSimple.sol\":\"FitnessDataStorageSimple\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"none\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":800},\"remappings\":[],\"viaIR\":true},\"sources\":{\"contracts/FitnessDataStorageSimple.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity ^0.8.24;\\r\\n\\r\\n/// @title FitnessDataStorageSimple\\r\\n/// @notice Simplified version for demo purposes without FHE\\r\\n/// @dev Stores fitness data in clear text for testing\\r\\ncontract FitnessDataStorageSimple {\\r\\n\\r\\n    struct FitnessData {\\r\\n        string name; // clear text - user identifier\\r\\n        uint256 steps; // daily steps count\\r\\n        uint256 runningDistance; // running distance in meters\\r\\n        uint256 caloriesBurned; // calories burned\\r\\n        uint256 workoutDuration; // workout duration in minutes\\r\\n        uint256 heartRateAvg; // average heart rate during workout\\r\\n        uint256 lastUpdate; // timestamp of last update\\r\\n    }\\r\\n\\r\\n    mapping(address => FitnessData) private _fitnessRecords;\\r\\n    mapping(address => uint256) private _totalWorkouts;\\r\\n\\r\\n    event FitnessDataUpdated(address indexed user, uint256 timestamp);\\r\\n\\r\\n    /// @notice Submit fitness data (simplified version without FHE)\\r\\n    function setFitnessData(\\r\\n        uint256 steps,\\r\\n        uint256 runningDistance,\\r\\n        uint256 caloriesBurned,\\r\\n        uint256 workoutDuration,\\r\\n        uint256 heartRateAvg,\\r\\n        string calldata name\\r\\n    ) external {\\r\\n        _fitnessRecords[msg.sender] = FitnessData({\\r\\n            name: name,\\r\\n            steps: steps,\\r\\n            runningDistance: runningDistance,\\r\\n            caloriesBurned: caloriesBurned,\\r\\n            workoutDuration: workoutDuration,\\r\\n            heartRateAvg: heartRateAvg,\\r\\n            lastUpdate: block.timestamp\\r\\n        });\\r\\n\\r\\n        _totalWorkouts[msg.sender]++;\\r\\n\\r\\n        emit FitnessDataUpdated(msg.sender, block.timestamp);\\r\\n    }\\r\\n\\r\\n    /// @notice Get clear text user name for an account\\r\\n    function getName(address account) external view returns (string memory) {\\r\\n        return _fitnessRecords[account].name;\\r\\n    }\\r\\n\\r\\n    /// @notice Get steps for an account (clear text for demo)\\r\\n    function getSteps(address account) external view returns (uint256) {\\r\\n        return _fitnessRecords[account].steps;\\r\\n    }\\r\\n\\r\\n    /// @notice Get running distance for an account (clear text for demo)\\r\\n    function getRunningDistance(address account) external view returns (uint256) {\\r\\n        return _fitnessRecords[account].runningDistance;\\r\\n    }\\r\\n\\r\\n    /// @notice Get calories burned for an account (clear text for demo)\\r\\n    function getCaloriesBurned(address account) external view returns (uint256) {\\r\\n        return _fitnessRecords[account].caloriesBurned;\\r\\n    }\\r\\n\\r\\n    /// @notice Get workout duration for an account (clear text for demo)\\r\\n    function getWorkoutDuration(address account) external view returns (uint256) {\\r\\n        return _fitnessRecords[account].workoutDuration;\\r\\n    }\\r\\n\\r\\n    /// @notice Get average heart rate for an account (clear text for demo)\\r\\n    function getHeartRateAvg(address account) external view returns (uint256) {\\r\\n        return _fitnessRecords[account].heartRateAvg;\\r\\n    }\\r\\n\\r\\n    /// @notice Get last update timestamp for an account\\r\\n    function getLastUpdate(address account) external view returns (uint256) {\\r\\n        return _fitnessRecords[account].lastUpdate;\\r\\n    }\\r\\n\\r\\n    /// @notice Get total workouts count for an account\\r\\n    function getTotalWorkouts(address account) external view returns (uint256) {\\r\\n        return _totalWorkouts[account];\\r\\n    }\\r\\n\\r\\n    /// @notice Check if user has fitness data\\r\\n    function hasFitnessData(address account) external view returns (bool) {\\r\\n        return _totalWorkouts[account] > 0;\\r\\n    }\\r\\n\\r\\n    /// @notice Get all fitness data for an account\\r\\n    function getAllFitnessData(address account) external view returns (\\r\\n        string memory name,\\r\\n        uint256 steps,\\r\\n        uint256 runningDistance,\\r\\n        uint256 caloriesBurned,\\r\\n        uint256 workoutDuration,\\r\\n        uint256 heartRateAvg,\\r\\n        uint256 totalWorkouts,\\r\\n        uint256 lastUpdate\\r\\n    ) {\\r\\n        FitnessData memory data = _fitnessRecords[account];\\r\\n        return (\\r\\n            data.name,\\r\\n            data.steps,\\r\\n            data.runningDistance,\\r\\n            data.caloriesBurned,\\r\\n            data.workoutDuration,\\r\\n            data.heartRateAvg,\\r\\n            _totalWorkouts[account],\\r\\n            data.lastUpdate\\r\\n        );\\r\\n    }\\r\\n\\r\\n    /// @notice Protocol ID for compatibility\\r\\n    function protocolId() external pure returns (uint256) {\\r\\n        return 10001;\\r\\n    }\\r\\n}\\r\\n\",\"keccak256\":\"0x715b3d3620a432cd41565b70d6439b068537bfc8d3c7a2c3ae110d02da8cb1b1\",\"license\":\"MIT\"}},\"version\":1}",
   "bytecode": "0x60808060405234601557610784908161001a8239f35b5f80fdfe6080806040526004361015610012575f80fd5b5f3560e01c9081631473d6dc14610603575080631a580d82146105c65780632b2fc2391461035f57806334e2abb8146103225780634a493d23146102415780635a7e1989146102045780635fd4b08a146101b257806377b06d261461017557806384fd48b81461013a5780638cdb5f0e146100fd578063995e5f92146100c05763da1f12ab146100a0575f80fd5b346100bc575f3660031901126100bc5760206040516127118152f35b5f80fd5b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526020600160405f200154604051908152f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526020600460405f200154604051908152f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f526001602052602060405f2054604051908152f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526020600360405f200154604051908152f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526102006101ec60405f206106d7565b60405191829160208352602083019061063d565b0390f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526020600660405f200154604051908152f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc57806102fa915f525f60205260405f206040519161028283610661565b61028b826106d7565b92838152600183015492836020830152600281015492836040840152600382015480606085015260048301549182608086015260c060066005860154958660a0890152015495019485525f52600160205260405f20549351946040519889986101008a526101008a019061063d565b96602089015260408801526060870152608086015260a085015260c084015260e08301520390f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526020600260405f200154604051908152f35b346100bc5760c03660031901126100bc5760a43567ffffffffffffffff81116100bc57366023820112156100bc5780600401359067ffffffffffffffff82116100bc5736602483830101116100bc575f6020604051936103be85610661565b806024604051956103d885601f19601f860116018861067d565b82875201838601378301015281526020810190600435825260408101602435815260608201604435815260808301606435815260a0840191608435835260c0850193428552335f525f60205260405f20955196875167ffffffffffffffff81116105b257610446885461069f565b601f811161056d575b506020601f82116001146105085781906006999a5f926104fd575b50508160011b915f199060031b1c19161788555b51600188015551600287015551600386015551600485015551600584015551910155335f52600160205260405f2080545f1981146104e95760010190556040514281527f4b5df0296fe89201effaa2c4f103d91d6dd6708f4159a18031d0f7a4e5403e4360203392a2005b634e487b7160e01b5f52601160045260245ffd5b015190508a8061046a565b601f19821699895f52815f209a5f5b81811061055557509160069a9b9184600195941061053d575b505050811b01885561047e565b01515f1960f88460031b161c191690558a8080610530565b838301518d556001909c019b60209384019301610517565b885f5260205f20601f830160051c810191602084106105a8575b601f0160051c01905b81811061059d575061044f565b5f8155600101610590565b9091508190610587565b634e487b7160e01b5f52604160045260245ffd5b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526020600560405f200154604051908152f35b346100bc5760203660031901126100bc57600435906001600160a01b0382168092036100bc576020915f526001825260405f205415158152f35b805180835260209291819084018484015e5f828201840152601f01601f1916010190565b60e0810190811067ffffffffffffffff8211176105b257604052565b90601f8019910116810190811067ffffffffffffffff8211176105b257604052565b90600182811c921680156106cd575b60208310146106b957565b634e487b7160e01b5f52602260045260245ffd5b91607f16916106ae565b9060405191825f8254926106ea8461069f565b80845293600181169081156107555750600114610711575b5061070f9250038361067d565b565b90505f9291925260205f20905f915b81831061073957505090602061070f928201015f610702565b6020919350806001915483858901015201910190918492610720565b90506020925061070f94915060ff191682840152151560051b8201015f61070256fea164736f6c634300081b000a",
   "deployedBytecode": "0x6080806040526004361015610012575f80fd5b5f3560e01c9081631473d6dc14610603575080631a580d82146105c65780632b2fc2391461035f57806334e2abb8146103225780634a493d23146102415780635a7e1989146102045780635fd4b08a146101b257806377b06d261461017557806384fd48b81461013a5780638cdb5f0e146100fd578063995e5f92146100c05763da1f12ab146100a0575f80fd5b346100bc575f3660031901126100bc5760206040516127118152f35b5f80fd5b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526020600160405f200154604051908152f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526020600460405f200154604051908152f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f526001602052602060405f2054604051908152f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526020600360405f200154604051908152f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526102006101ec60405f206106d7565b60405191829160208352602083019061063d565b0390f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526020600660405f200154604051908152f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc57806102fa915f525f60205260405f206040519161028283610661565b61028b826106d7565b92838152600183015492836020830152600281015492836040840152600382015480606085015260048301549182608086015260c060066005860154958660a0890152015495019485525f52600160205260405f20549351946040519889986101008a526101008a019061063d565b96602089015260408801526060870152608086015260a085015260c084015260e08301520390f35b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526020600260405f200154604051908152f35b346100bc5760c03660031901126100bc5760a43567ffffffffffffffff81116100bc57366023820112156100bc5780600401359067ffffffffffffffff82116100bc5736602483830101116100bc575f6020604051936103be85610661565b806024604051956103d885601f19601f860116018861067d565b82875201838601378301015281526020810190600435825260408101602435815260608201604435815260808301606435815260a0840191608435835260c0850193428552335f525f60205260405f20955196875167ffffffffffffffff81116105b257610446885461069f565b601f811161056d575b506020601f82116001146105085781906006999a5f926104fd575b50508160011b915f199060031b1c19161788555b51600188015551600287015551600386015551600485015551600584015551910155335f52600160205260405f2080545f1981146104e95760010190556040514281527f4b5df0296fe89201effaa2c4f103d91d6dd6708f4159a18031d0f7a4e5403e4360203392a2005b634e487b7160e01b5f52601160045260245ffd5b015190508a8061046a565b601f19821699895f52815f209a5f5b81811061055557509160069a9b9184600195941061053d575b505050811b01885561047e565b01515f1960f88460031b161c191690558a8080610530565b838301518d556001909c019b60209384019301610517565b885f5260205f20601f830160051c810191602084106105a8575b601f0160051c01905b81811061059d575061044f565b5f8155600101610590565b9091508190610587565b634e487b7160e01b5f52604160045260245ffd5b346100bc5760203660031901126100bc576004356001600160a01b0381168091036100bc575f525f6020526020600560405f200154604051908152f35b346100bc5760203660031901126100bc57600435906001600160a01b0382168092036100bc576020915f526001825260405f205415158152f35b805180835260209291819084018484015e5f828201840152601f01601f1916010190565b60e0810190811067ffffffffffffffff8211176105b257604052565b90601f8019910116810190811067ffffffffffffffff8211176105b257604052565b90600182811c921680156106cd575b60208310146106b957565b634e487b7160e01b5f52602260045260245ffd5b91607f16916106ae565b9060405191825f8254926106ea8461069f565b80845293600181169081156107555750600114610711575b5061070f9250038361067d565b565b90505f9291925260205f20905f915b81831061073957505090602061070f928201015f610702565b6020919350806001915483858901015201910190918492610720565b90506020925061070f94915060ff191682840152151560051b8201015f61070256fea164736f6c634300081b000a",
@@ -372,15 +372,15 @@
   "storageLayout": {
     "storage": [
       {
-        "astId": 22,
+        "astId": 39503,
         "contract": "contracts/FitnessDataStorageSimple.sol:FitnessDataStorageSimple",
         "label": "_fitnessRecords",
         "offset": 0,
         "slot": "0",
-        "type": "t_mapping(t_address,t_struct(FitnessData)17_storage)"
+        "type": "t_mapping(t_address,t_struct(FitnessData)39498_storage)"
       },
       {
-        "astId": 26,
+        "astId": 39507,
         "contract": "contracts/FitnessDataStorageSimple.sol:FitnessDataStorageSimple",
         "label": "_totalWorkouts",
         "offset": 0,
@@ -394,12 +394,12 @@
         "label": "address",
         "numberOfBytes": "20"
       },
-      "t_mapping(t_address,t_struct(FitnessData)17_storage)": {
+      "t_mapping(t_address,t_struct(FitnessData)39498_storage)": {
         "encoding": "mapping",
         "key": "t_address",
         "label": "mapping(address => struct FitnessDataStorageSimple.FitnessData)",
         "numberOfBytes": "32",
-        "value": "t_struct(FitnessData)17_storage"
+        "value": "t_struct(FitnessData)39498_storage"
       },
       "t_mapping(t_address,t_uint256)": {
         "encoding": "mapping",
@@ -413,12 +413,12 @@
         "label": "string",
         "numberOfBytes": "32"
       },
-      "t_struct(FitnessData)17_storage": {
+      "t_struct(FitnessData)39498_storage": {
         "encoding": "inplace",
         "label": "struct FitnessDataStorageSimple.FitnessData",
         "members": [
           {
-            "astId": 4,
+            "astId": 39485,
             "contract": "contracts/FitnessDataStorageSimple.sol:FitnessDataStorageSimple",
             "label": "name",
             "offset": 0,
@@ -426,7 +426,7 @@
             "type": "t_string_storage"
           },
           {
-            "astId": 6,
+            "astId": 39487,
             "contract": "contracts/FitnessDataStorageSimple.sol:FitnessDataStorageSimple",
             "label": "steps",
             "offset": 0,
@@ -434,7 +434,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 8,
+            "astId": 39489,
             "contract": "contracts/FitnessDataStorageSimple.sol:FitnessDataStorageSimple",
             "label": "runningDistance",
             "offset": 0,
@@ -442,7 +442,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 10,
+            "astId": 39491,
             "contract": "contracts/FitnessDataStorageSimple.sol:FitnessDataStorageSimple",
             "label": "caloriesBurned",
             "offset": 0,
@@ -450,7 +450,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 12,
+            "astId": 39493,
             "contract": "contracts/FitnessDataStorageSimple.sol:FitnessDataStorageSimple",
             "label": "workoutDuration",
             "offset": 0,
@@ -458,7 +458,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 14,
+            "astId": 39495,
             "contract": "contracts/FitnessDataStorageSimple.sol:FitnessDataStorageSimple",
             "label": "heartRateAvg",
             "offset": 0,
@@ -466,7 +466,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 16,
+            "astId": 39497,
             "contract": "contracts/FitnessDataStorageSimple.sol:FitnessDataStorageSimple",
             "label": "lastUpdate",
             "offset": 0,

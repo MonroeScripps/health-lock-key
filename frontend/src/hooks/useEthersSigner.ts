@@ -1,4 +1,3 @@
-// Enhanced ethers signer hook for fitness data operations with improved TypeScript support
 import { useMemo } from 'react';
 import { useWalletClient } from 'wagmi';
 import { BrowserProvider, JsonRpcSigner } from 'ethers';

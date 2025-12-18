@@ -1,4 +1,3 @@
-// Hardhat tasks for fitness data storage contract interaction and testing
 import { task } from "hardhat/config";
 
 task("accounts", "Prints the list of accounts", async (_taskArgs, hre) => {

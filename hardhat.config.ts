@@ -38,8 +38,6 @@ const config: HardhatUserConfig = {
         mnemonic: MNEMONIC,
       },
       chainId: 31337,
-      gas: 8000000,
-      blockGasLimit: 8000000,
     },
     anvil: {
       accounts: {
@@ -78,7 +76,7 @@ const config: HardhatUserConfig = {
       // https://hardhat.org/hardhat-network/#solidity-optimizer-support
       optimizer: {
         enabled: true,
-        runs: 1000,
+        runs: 800,
       },
       evmVersion: "cancun",
       viaIR: true, // Enable IR-based codegen to handle complex contracts

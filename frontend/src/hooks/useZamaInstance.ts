@@ -1,4 +1,3 @@
-// Enhanced FHEVM hook for fitness data operations with improved error handling and loading states
 import { useState, useEffect } from 'react';
 import { useChainId, useAccount } from 'wagmi';
 import { ethers } from 'ethers';
